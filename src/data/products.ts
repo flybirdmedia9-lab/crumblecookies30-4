@@ -1,3 +1,4 @@
+import type { Product } from "@/types";
 import chocoChip from "@/assets/product-choco-chip.jpg";
 import brownie from "@/assets/product-brownie.jpg";
 import oatmeal from "@/assets/product-oatmeal.jpg";
@@ -5,18 +6,7 @@ import doubleChoco from "@/assets/product-double-choco.jpg";
 import combo from "@/assets/product-combo.jpg";
 import walnutBrownie from "@/assets/product-walnut-brownie.jpg";
 
-export type Product = {
-  id: string;
-  name: string;
-  category: "Cookies" | "Brownies" | "Combo Packs";
-  price: number;
-  weight: string;
-  image: string;
-  shortDescription: string;
-  description: string;
-  ingredients: string[];
-  badge?: string;
-};
+export type { Product };
 
 export const products: Product[] = [
   {
@@ -31,6 +21,13 @@ export const products: Product[] = [
       "Our signature recipe — soft in the centre, lightly crisp at the edges, and packed with melty chocolate chips in every bite. Baked fresh in small batches with real butter.",
     ingredients: ["Wheat flour", "Butter", "Brown sugar", "Belgian chocolate chips", "Eggs", "Vanilla", "Sea salt"],
     badge: "Bestseller",
+    sku: "CKY-001",
+    stock: 24,
+    rating: 4.9,
+    reviewCount: 42,
+    isEnabled: true,
+    isBestseller: true,
+    isFeatured: true,
   },
   {
     id: "double-chocolate",
@@ -43,6 +40,13 @@ export const products: Product[] = [
     description:
       "A chocolate lover's dream. Rich cocoa dough folded with dark chocolate chunks for an indulgent, fudgy bite.",
     ingredients: ["Wheat flour", "Butter", "Cocoa powder", "Dark chocolate chunks", "Brown sugar", "Eggs", "Vanilla"],
+    sku: "CKY-002",
+    stock: 18,
+    rating: 4.8,
+    reviewCount: 28,
+    isEnabled: true,
+    isNew: true,
+    badge: "New Arrival",
   },
   {
     id: "oatmeal-cookies",
@@ -55,6 +59,11 @@ export const products: Product[] = [
     description:
       "Wholesome rolled oats, a hint of cinnamon, and brown butter come together in a chewy cookie that feels like a hug.",
     ingredients: ["Wheat flour", "Rolled oats", "Butter", "Brown sugar", "Raisins", "Cinnamon", "Eggs"],
+    sku: "CKY-003",
+    stock: 30,
+    rating: 4.7,
+    reviewCount: 19,
+    isEnabled: true,
   },
   {
     id: "fudgy-brownie",
@@ -67,7 +76,13 @@ export const products: Product[] = [
     description:
       "Made with Belgian dark chocolate and slow-baked for that signature crackly top and gooey, fudgy centre.",
     ingredients: ["Belgian dark chocolate", "Butter", "Eggs", "Sugar", "Wheat flour", "Cocoa powder"],
-    badge: "Premium",
+    badge: "Featured",
+    sku: "BRW-001",
+    stock: 15,
+    rating: 4.9,
+    reviewCount: 37,
+    isEnabled: true,
+    isFeatured: true,
   },
   {
     id: "walnut-brownie",
@@ -80,6 +95,12 @@ export const products: Product[] = [
     description:
       "Our fudgy brownie base, generously topped with toasted California walnuts for a perfect contrast in every bite.",
     ingredients: ["Belgian dark chocolate", "Butter", "Eggs", "Sugar", "Walnuts", "Wheat flour"],
+    sku: "BRW-002",
+    stock: 12,
+    rating: 4.8,
+    reviewCount: 22,
+    isEnabled: true,
+    isBestseller: true,
   },
   {
     id: "combo-box",
@@ -93,6 +114,12 @@ export const products: Product[] = [
       "Our most-loved assortment — a mix of classic choco chip cookies, oatmeal cookies, and fudgy brownies, packed in a kraft gift box with a cream ribbon. The perfect gift.",
     ingredients: ["Assorted cookies", "Assorted brownies", "Premium kraft gift packaging"],
     badge: "Gift Ready",
+    sku: "CMB-001",
+    stock: 8,
+    rating: 5.0,
+    reviewCount: 55,
+    isEnabled: true,
+    isFeatured: true,
   },
 ];
 

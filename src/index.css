@@ -8,7 +8,7 @@
 
 @layer base {
   :root {
-    /* Warm cream background */
+    /* Warm cream background - Uniform across site */
     --background: 36 38% 96%;
     --foreground: 24 30% 16%;
 
@@ -112,6 +112,11 @@
   h1, h2, h3, h4, .font-display {
     font-family: 'Cormorant Garamond', Georgia, serif;
     letter-spacing: -0.01em;
+  }
+
+  .font-price {
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.02em;
   }
 }
 

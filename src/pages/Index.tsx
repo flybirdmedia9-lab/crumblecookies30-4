@@ -4,9 +4,11 @@ import aboutImg from "@/assets/about-bakery.jpg";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/ProductCard";
 import { products } from "@/data/products";
-import { Heart, Leaf, Truck, Star } from "lucide-react";
+import { Heart, Leaf, Truck, Star, Zap, Gift, Clock } from "lucide-react";
 
-const featured = products.slice(0, 4);
+const featured = products.filter((p) => p.isFeatured);
+const bestsellers = products.filter((p) => p.isBestseller);
+const newArrivals = products.filter((p) => p.isNew);
 
 const reviews = [
   { name: "Ananya R.", text: "The choco chip cookies are heavenly — soft, gooey and so fresh. My new favourite!", rating: 5 },
@@ -18,29 +20,29 @@ const Index = () => {
   return (
     <main>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-warm">
-        <div className="container grid items-center gap-12 py-16 md:grid-cols-2 md:py-24 lg:py-32">
-          <div className="animate-fade-up">
+      <section className="relative overflow-hidden bg-background">
+        <div className="container grid items-center gap-8 py-6 md:grid-cols-2 md:py-10 lg:py-14">
+          <div className="animate-fade-up text-center md:text-left">
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">
-              Premium Homemade Bakery
+              Premium Homemade Bakery · Yadadri
             </p>
-            <h1 className="mt-4 font-display text-5xl font-semibold leading-[1.05] text-primary md:text-6xl lg:text-7xl">
+            <h1 className="mt-3 font-display text-5xl font-semibold leading-[1.05] text-primary md:text-6xl lg:text-7xl">
               Baked with love.<br />
               <span className="italic text-accent">Made to comfort.</span>
             </h1>
-            <p className="mt-6 max-w-md text-base text-muted-foreground md:text-lg">
+            <p className="mt-5 max-w-md text-base text-muted-foreground md:text-lg mx-auto md:mx-0">
               Freshly baked cookies, brownies and more — crafted in small batches with the
               finest ingredients. Soft, rich and unforgettable.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-7 flex flex-wrap justify-center md:justify-start gap-3">
               <Button asChild size="lg" className="rounded-full bg-primary px-8 text-primary-foreground shadow-warm hover:bg-brown-deep">
-                <Link to="/products">Shop Now</Link>
+                <Link to="/products">Order Now</Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="rounded-full border-primary/20 bg-background px-8 hover:bg-secondary">
                 <Link to="/about">Our Story</Link>
               </Button>
             </div>
-            <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4 text-sm text-muted-foreground">
+            <div className="mt-8 flex flex-wrap items-center justify-center md:justify-start gap-x-6 gap-y-3 text-sm text-muted-foreground">
               <div className="flex items-center gap-2"><Leaf className="h-4 w-4 text-accent" /> 100% Homemade</div>
               <div className="flex items-center gap-2"><Truck className="h-4 w-4 text-accent" /> All India Delivery</div>
               <div className="flex items-center gap-2"><Heart className="h-4 w-4 text-accent" /> Small batch baked</div>
@@ -48,66 +50,99 @@ const Index = () => {
           </div>
 
           <div className="relative">
-            <div className="absolute -inset-4 rounded-[2rem] bg-accent/10 blur-2xl" />
+            <div className="absolute -inset-4 rounded-[2rem] bg-accent/5 blur-2xl" />
             <div className="relative overflow-hidden rounded-[2rem] shadow-elegant">
               <img
                 src={heroImg}
-                alt="Stack of freshly baked chocolate chip cookies on cream parchment"
-                width={1920}
-                height={1280}
-                className="h-full w-full object-cover"
+                alt="Stack of freshly baked chocolate chip cookies"
+                className="h-full w-full object-cover aspect-[4/3] md:aspect-square"
               />
+              {/* Floating badge */}
+              <div className="absolute bottom-4 left-4 rounded-2xl bg-background/90 backdrop-blur-sm p-3 shadow-warm">
+                <div className="flex items-center gap-2">
+                  <div className="flex gap-0.5">
+                    {[1,2,3,4,5].map((i) => <Star key={i} className="h-3 w-3 text-accent" fill="currentColor" />)}
+                  </div>
+                  <span className="text-xs font-semibold text-primary">5.0 · 120+ reviews</span>
+                </div>
+              </div>
             </div>
-            <div className="absolute -bottom-6 -left-6 hidden rounded-2xl bg-card px-5 py-4 shadow-elegant md:block">
-              <p className="font-display text-2xl font-semibold text-primary">4.9 ★</p>
-              <p className="text-xs text-muted-foreground">Loved by 1,000+ customers</p>
-            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* OFFERS STRIP */}
+      <section className="bg-primary/5 border-y border-border/40">
+        <div className="container py-5">
+          <div className="flex flex-wrap justify-center gap-8 text-sm text-primary/80">
+            <div className="flex items-center gap-2 font-medium"><Zap className="h-4 w-4 text-accent" /> Use code <span className="font-bold text-accent">FIRST50</span> — Save ₹50</div>
+            <div className="flex items-center gap-2"><Truck className="h-4 w-4 text-accent" /> Free shipping on ₹599+</div>
+            <div className="flex items-center gap-2"><Clock className="h-4 w-4 text-accent" /> Baked fresh to order</div>
+            <div className="flex items-center gap-2"><Gift className="h-4 w-4 text-accent" /> Gift boxes available</div>
           </div>
         </div>
       </section>
 
       {/* FEATURED PRODUCTS */}
-      <section className="container py-20 md:py-28">
-        <div className="flex flex-col items-end justify-between gap-4 md:flex-row md:items-end">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">Bestsellers</p>
-            <h2 className="mt-2 font-display text-4xl font-semibold text-primary md:text-5xl">
-              Freshly baked favourites
-            </h2>
-          </div>
-          <Link to="/products" className="text-sm font-medium text-accent hover:underline">
-            View all →
-          </Link>
+      <section className="container py-16 md:py-24">
+        <div className="text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">Handpicked for you</p>
+          <h2 className="mt-2 font-display text-4xl font-semibold text-primary md:text-5xl">Featured Products</h2>
         </div>
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {featured.map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {featured.map((p) => <ProductCard key={p.id} product={p} />)}
+        </div>
+        <div className="mt-10 text-center">
+          <Link to="/products" className="text-sm font-semibold uppercase tracking-widest text-accent hover:underline">
+            View All Products →
+          </Link>
         </div>
       </section>
 
-      {/* ABOUT STRIP */}
-      <section className="bg-secondary/40 py-20 md:py-28">
-        <div className="container grid items-center gap-12 md:grid-cols-2">
-          <div className="overflow-hidden rounded-[2rem] shadow-elegant">
-            <img
-              src={aboutImg}
-              alt="Assorted homemade cookies on linen"
-              loading="lazy"
-              width={1280}
-              height={960}
-              className="h-full w-full object-cover"
-            />
+      {/* BESTSELLERS */}
+      {bestsellers.length > 0 && (
+        <section className="bg-secondary/30 py-16 md:py-20">
+          <div className="container">
+            <div className="text-center">
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">Most loved</p>
+              <h2 className="mt-2 font-display text-4xl font-semibold text-primary md:text-5xl">
+                Freshly Baked Favourites
+              </h2>
+            </div>
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {bestsellers.map((p) => <ProductCard key={p.id} product={p} />)}
+            </div>
           </div>
-          <div>
+        </section>
+      )}
+
+      {/* NEW ARRIVALS */}
+      {newArrivals.length > 0 && (
+        <section className="container py-16 md:py-20">
+          <div className="text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">Just arrived</p>
+            <h2 className="mt-2 font-display text-4xl font-semibold text-primary md:text-5xl">New Arrivals</h2>
+          </div>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {newArrivals.map((p) => <ProductCard key={p.id} product={p} />)}
+          </div>
+        </section>
+      )}
+
+      {/* ABOUT STRIP */}
+      <section className="bg-background py-16 md:py-24">
+        <div className="container grid items-center gap-12 md:grid-cols-2">
+          <div className="overflow-hidden rounded-[2rem] shadow-elegant order-2 md:order-1">
+            <img src={aboutImg} alt="Assorted homemade cookies on linen" loading="lazy" className="h-full w-full object-cover aspect-[4/3]" />
+          </div>
+          <div className="order-1 md:order-2 text-center md:text-left">
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">Our Story</p>
             <h2 className="mt-2 font-display text-4xl font-semibold text-primary md:text-5xl">
               A bakery built on<br />real ingredients & love.
             </h2>
             <p className="mt-5 text-base text-muted-foreground md:text-lg">
               At Crumbel, every cookie and brownie is made by hand, in small batches, using
-              real butter, premium chocolate and zero shortcuts. We believe great baking is
-              about patience, care and using ingredients you'd be proud to share.
+              real butter, premium chocolate and zero shortcuts.
             </p>
             <Button asChild className="mt-8 rounded-full bg-primary px-8 text-primary-foreground hover:bg-brown-deep">
               <Link to="/about">Learn more</Link>
@@ -117,22 +152,20 @@ const Index = () => {
       </section>
 
       {/* REVIEWS */}
-      <section className="container py-20 md:py-28">
+      <section className="container py-16 md:py-24">
         <div className="text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">What customers say</p>
           <h2 className="mt-2 font-display text-4xl font-semibold text-primary md:text-5xl">
             Sweet words from sweeter souls
           </h2>
         </div>
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
           {reviews.map((r) => (
-            <div key={r.name} className="rounded-2xl bg-card p-7 shadow-soft">
+            <div key={r.name} className="rounded-2xl bg-card p-8 shadow-soft border border-border/40">
               <div className="flex gap-1 text-accent">
-                {Array.from({ length: r.rating }).map((_, i) => (
-                  <Star key={i} className="h-4 w-4" fill="currentColor" />
-                ))}
+                {Array.from({ length: r.rating }).map((_, i) => <Star key={i} className="h-4 w-4" fill="currentColor" />)}
               </div>
-              <p className="mt-4 font-display text-xl leading-relaxed text-primary">"{r.text}"</p>
+              <p className="mt-4 font-display text-xl leading-relaxed text-primary italic">"{r.text}"</p>
               <p className="mt-5 text-sm font-medium text-muted-foreground">— {r.name}</p>
             </div>
           ))}
@@ -140,17 +173,16 @@ const Index = () => {
       </section>
 
       {/* CTA STRIP */}
-      <section className="container pb-24">
-        <div className="overflow-hidden rounded-[2rem] bg-gradient-brown px-8 py-14 text-center shadow-elegant md:px-16 md:py-20">
+      <section className="container pb-20">
+        <div className="overflow-hidden rounded-[2rem] bg-primary px-8 py-14 text-center shadow-elegant md:px-16 md:py-20">
           <h2 className="font-display text-4xl font-semibold text-primary-foreground md:text-5xl">
             Treat yourself today.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base text-primary-foreground/80">
-            Order our combo packs for a perfect mix of cookies and brownies — beautifully boxed
-            and delivered fresh across India.
+            Order our combo packs for a perfect mix of cookies and brownies — beautifully boxed and delivered fresh.
           </p>
-          <Button asChild size="lg" className="mt-8 rounded-full bg-accent px-10 text-accent-foreground hover:bg-caramel">
-            <Link to="/products">Shop Combo Packs</Link>
+          <Button asChild size="lg" className="mt-8 rounded-full bg-accent px-10 text-accent-foreground hover:opacity-90">
+            <Link to="/products">Order Now</Link>
           </Button>
         </div>
       </section>
