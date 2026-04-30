@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Crumbel — Premium homemade bakery design system. All colors HSL. */
+
+@layer base {
+  :root {
+    /* Warm cream background */
+    --background: 36 38% 96%;
+    --foreground: 24 30% 16%;
+
+    --card: 36 45% 98%;
+    --card-foreground: 24 30% 16%;
+
+    --popover: 36 45% 98%;
+    --popover-foreground: 24 30% 16%;
+
+    /* Rich warm brown — primary */
+    --primary: 24 42% 24%;
+    --primary-foreground: 36 45% 97%;
+
+    /* Soft beige */
+    --secondary: 33 32% 88%;
+    --secondary-foreground: 24 42% 24%;
+
+    --muted: 33 28% 90%;
+    --muted-foreground: 24 18% 38%;
+
+    /* Caramel accent */
+    --accent: 28 55% 58%;
+    --accent-foreground: 36 45% 97%;
+
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 36 45% 97%;
+
+    --border: 30 22% 84%;
+    --input: 30 22% 84%;
+    --ring: 24 42% 24%;
+
+    --radius: 0.75rem;
+
+    /* Crumbel custom tokens */
+    --cream: 36 50% 95%;
+    --beige: 33 35% 86%;
+    --beige-deep: 30 28% 76%;
+    --brown: 24 42% 24%;
+    --brown-deep: 22 50% 16%;
+    --caramel: 28 55% 58%;
+    --gold: 38 60% 55%;
+
+    --gradient-warm: linear-gradient(135deg, hsl(36 50% 95%) 0%, hsl(33 35% 86%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(36 50% 95% / 0) 0%, hsl(36 50% 95% / 0.85) 100%);
+    --gradient-brown: linear-gradient(135deg, hsl(24 42% 24%) 0%, hsl(22 50% 16%) 100%);
+
+    --shadow-soft: 0 4px 20px -4px hsl(24 42% 24% / 0.08);
+    --shadow-warm: 0 10px 40px -10px hsl(28 55% 58% / 0.25);
+    --shadow-elegant: 0 20px 60px -20px hsl(24 42% 24% / 0.18);
+
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 22 30% 10%;
+    --foreground: 36 45% 95%;
+    --card: 22 30% 12%;
+    --card-foreground: 36 45% 95%;
+    --popover: 22 30% 12%;
+    --popover-foreground: 36 45% 95%;
+    --primary: 36 45% 95%;
+    --primary-foreground: 22 30% 10%;
+    --secondary: 24 20% 20%;
+    --secondary-foreground: 36 45% 95%;
+    --muted: 24 20% 18%;
+    --muted-foreground: 33 15% 65%;
+    --accent: 28 55% 58%;
+    --accent-foreground: 22 30% 10%;
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 36 45% 95%;
+    --border: 24 20% 22%;
+    --input: 24 20% 22%;
+    --ring: 28 55% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer utilities {
+  .bg-gradient-warm { background: var(--gradient-warm); }
+  .bg-gradient-hero { background: var(--gradient-hero); }
+  .bg-gradient-brown { background: var(--gradient-brown); }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+  .shadow-warm { box-shadow: var(--shadow-warm); }
+  .shadow-elegant { box-shadow: var(--shadow-elegant); }
+  .transition-smooth { transition: var(--transition-smooth); }
+}
+
+@keyframes float-up {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.animate-float { animation: float-up 3s ease-in-out infinite; }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fade-up 0.8s ease-out both; }
