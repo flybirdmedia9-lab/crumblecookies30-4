@@ -38,6 +38,10 @@ export const Header = () => {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/95 backdrop-blur-md">
+      {/* Announcement Bar - Levain style */}
+      <div className="bg-accent py-2 text-center text-[10px] font-bold uppercase tracking-[0.2em] text-accent-foreground">
+        Order Now for Fresh Batch Delivery · Free Shipping on ₹599+
+      </div>
       <div className="container relative flex h-16 items-center justify-between md:h-20">
 
         {/* LEFT: Hamburger + main nav */}

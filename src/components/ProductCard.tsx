@@ -10,9 +10,9 @@ import { cn } from "@/lib/utils";
 const BADGE_STYLES: Record<string, string> = {
   Bestseller: "bg-accent text-accent-foreground",
   Featured: "bg-primary text-primary-foreground",
-  "New Arrival": "bg-green-600 text-white",
-  "New Stock": "bg-blue-600 text-white",
-  "Limited Stock": "bg-orange-500 text-white",
+  "New Arrival": "bg-secondary text-secondary-foreground",
+  "New Stock": "bg-secondary text-secondary-foreground",
+  "Limited Stock": "bg-accent text-accent-foreground opacity-90",
   "Out of Stock": "bg-muted text-muted-foreground",
   Premium: "bg-primary text-primary-foreground",
   "Gift Ready": "bg-accent text-accent-foreground",

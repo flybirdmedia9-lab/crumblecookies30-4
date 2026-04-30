@@ -71,14 +71,13 @@ const Index = () => {
         </div>
       </section>
 
-      {/* OFFERS STRIP */}
-      <section className="bg-primary/5 border-y border-border/40">
-        <div className="container py-5">
-          <div className="flex flex-wrap justify-center gap-8 text-sm text-primary/80">
-            <div className="flex items-center gap-2 font-medium"><Zap className="h-4 w-4 text-accent" /> Use code <span className="font-bold text-accent">FIRST50</span> — Save ₹50</div>
-            <div className="flex items-center gap-2"><Truck className="h-4 w-4 text-accent" /> Free shipping on ₹599+</div>
-            <div className="flex items-center gap-2"><Clock className="h-4 w-4 text-accent" /> Baked fresh to order</div>
-            <div className="flex items-center gap-2"><Gift className="h-4 w-4 text-accent" /> Gift boxes available</div>
+      {/* OFFERS STRIP - Levain Light Blue */}
+      <section className="bg-secondary/40 border-y border-border/20">
+        <div className="container py-4">
+          <div className="flex flex-wrap justify-center gap-8 text-[11px] font-bold uppercase tracking-widest text-primary/80">
+            <div className="flex items-center gap-2"><Zap className="h-3.5 w-3.5 text-accent" /> Use code <span className="text-accent">FIRST50</span></div>
+            <div className="flex items-center gap-2"><Truck className="h-3.5 w-3.5 text-accent" /> Free shipping on ₹599+</div>
+            <div className="flex items-center gap-2"><Clock className="h-3.5 w-3.5 text-accent" /> Baked fresh to order</div>
           </div>
         </div>
       </section>
