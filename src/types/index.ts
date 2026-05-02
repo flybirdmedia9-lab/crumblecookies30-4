@@ -10,6 +10,7 @@ export type Product = {
   discountPrice?: number;
   weight: string;
   image: string;
+  images?: string[];
   shortDescription: string;
   description: string;
   ingredients: string[];

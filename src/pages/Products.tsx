@@ -70,32 +70,17 @@ const Products = () => {
     <main>
       <section className="bg-background border-b border-border/40">
         <div className="container py-8 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">Our Bakery</p>
-          <h1 className="mt-2 font-display text-5xl font-semibold text-primary md:text-6xl">Order</h1>
-          <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-            Soft cookies, fudgy brownies and indulgent combo packs — baked fresh, delivered with care.
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">Shop Treats</p>
+          <h1 className="mt-2 font-display text-5xl font-semibold text-primary md:text-6xl">Freshly Baked, Just for You</h1>
+          <p className="mx-auto mt-3 max-w-xl text-primary/90 text-lg">
+            Indulge in soft cookies, rich brownies & handcrafted combos — baked fresh, delivered with love.
           </p>
         </div>
       </section>
 
       <section className="container py-8 md:py-10">
-        {/* Search + Sort + Filter bar */}
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-8">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Search cookies, brownies..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="pl-10 rounded-full h-11"
-            />
-            {search && (
-              <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
-                <X className="h-4 w-4" />
-              </button>
-            )}
-          </div>
-
+        {/* Sort + Filter bar */}
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-end mb-8">
           <div className="flex items-center gap-3">
             <select
               value={sort}

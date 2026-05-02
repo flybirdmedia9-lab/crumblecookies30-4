@@ -6,7 +6,7 @@ import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 import { toast } from "sonner";
 import { ProductCard } from "@/components/ProductCard";
-import { Minus, Plus, ChevronLeft, Truck, Leaf, ShieldCheck, Heart, Star, Package } from "lucide-react";
+import { Minus, Plus, ChevronLeft, ChevronRight, Truck, Leaf, ShieldCheck, Heart, Star, Package } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const BADGE_STYLES: Record<string, string> = {
@@ -23,57 +23,114 @@ const ProductDetail = () => {
   const { add, setDrawerOpen } = useCart();
   const { toggle, has } = useWishlist();
   const [qty, setQty] = useState(1);
+  const [activeImg, setActiveImg] = useState(0);
   const wishlisted = product ? has(product.id) : false;
 
   if (!product) {
     return (
       <main className="container py-24 text-center">
         <h1 className="font-display text-4xl text-primary">Product not found</h1>
-        <Button asChild className="mt-6 rounded-full"><Link to="/products">Back to Order</Link></Button>
+        <Button asChild className="mt-6 rounded-full"><Link to="/products">Back to Shop</Link></Button>
       </main>
     );
   }
 
+  const images = product.images?.length ? product.images : [product.image];
   const related = products.filter((p) => p.id !== product.id && p.category === product.category).slice(0, 3);
   const otherRelated = related.length < 3 ? [...related, ...products.filter((p) => p.id !== product.id && !related.includes(p)).slice(0, 3 - related.length)] : related;
 
   const handleAdd = () => {
     add(product, qty);
     setDrawerOpen(true);
-    toast.success(`${qty} × ${product.name} added to bag`);
+    toast.success(`${qty} × ${product.name} added to cart`);
   };
 
-  const handleBuyNow = () => {
-    add(product, qty);
-    setDrawerOpen(true);
-  };
+  const prevImg = () => setActiveImg((i) => (i === 0 ? images.length - 1 : i - 1));
+  const nextImg = () => setActiveImg((i) => (i === images.length - 1 ? 0 : i + 1));
 
   return (
     <main>
       <div className="container pt-6">
         <Link to="/products" className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-smooth hover:text-accent">
-          <ChevronLeft className="h-4 w-4" /> Back to Order
+          <ChevronLeft className="h-4 w-4" /> Back to Shop
         </Link>
       </div>
 
       <section className="container grid gap-10 py-8 md:grid-cols-2 md:py-12">
-        {/* Image */}
-        <div className="relative">
-          <div className="overflow-hidden rounded-[2rem] bg-secondary shadow-elegant aspect-square">
-            <img src={product.image} alt={product.name} className="h-full w-full object-cover" />
+        {/* Image Slider */}
+        <div className="flex flex-col gap-3">
+          {/* Main image */}
+          <div className="relative overflow-hidden rounded-[2rem] bg-secondary shadow-elegant aspect-square">
+            <img
+              src={images[activeImg]}
+              alt={product.name}
+              className="h-full w-full object-cover transition-all duration-500"
+            />
+            {product.badge && (
+              <span className={cn("absolute left-4 top-4 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider", BADGE_STYLES[product.badge] ?? "bg-accent text-accent-foreground")}>
+                {product.badge}
+              </span>
+            )}
+            <button
+              onClick={() => { toggle(product); toast(wishlisted ? "Removed from wishlist" : "Added to wishlist"); }}
+              className={cn("absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/90 backdrop-blur-sm shadow-warm transition-smooth hover:scale-110", wishlisted ? "text-destructive" : "text-muted-foreground")}
+              aria-label="Wishlist"
+            >
+              <Heart className="h-5 w-5" fill={wishlisted ? "currentColor" : "none"} />
+            </button>
+
+            {/* Prev / Next arrows */}
+            {images.length > 1 && (
+              <>
+                <button
+                  onClick={prevImg}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 inline-flex h-9 w-9 items-center justify-center rounded-full bg-background/80 backdrop-blur-sm shadow text-primary hover:bg-background transition-smooth"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={nextImg}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-9 w-9 items-center justify-center rounded-full bg-background/80 backdrop-blur-sm shadow text-primary hover:bg-background transition-smooth"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+              </>
+            )}
+
+            {/* Dot indicators */}
+            {images.length > 1 && (
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
+                {images.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveImg(i)}
+                    className={cn("h-1.5 rounded-full transition-all duration-300", i === activeImg ? "w-5 bg-primary" : "w-1.5 bg-primary/30")}
+                    aria-label={`Image ${i + 1}`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
-          {product.badge && (
-            <span className={cn("absolute left-4 top-4 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider", BADGE_STYLES[product.badge] ?? "bg-accent text-accent-foreground")}>
-              {product.badge}
-            </span>
+
+          {/* Thumbnail strip */}
+          {images.length > 1 && (
+            <div className="flex gap-2">
+              {images.map((src, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveImg(i)}
+                  className={cn(
+                    "flex-1 overflow-hidden rounded-xl aspect-square transition-all duration-200",
+                    i === activeImg ? "ring-2 ring-primary ring-offset-2" : "opacity-60 hover:opacity-90"
+                  )}
+                >
+                  <img src={src} alt={`View ${i + 1}`} className="h-full w-full object-cover" />
+                </button>
+              ))}
+            </div>
           )}
-          <button
-            onClick={() => { toggle(product); toast(wishlisted ? "Removed from wishlist" : "Added to wishlist"); }}
-            className={cn("absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/90 backdrop-blur-sm shadow-warm transition-smooth hover:scale-110", wishlisted ? "text-destructive" : "text-muted-foreground")}
-            aria-label="Wishlist"
-          >
-            <Heart className="h-5 w-5" fill={wishlisted ? "currentColor" : "none"} />
-          </button>
         </div>
 
         {/* Info */}
@@ -111,14 +168,12 @@ const ProductDetail = () => {
 
           <p className="mt-5 text-base leading-relaxed text-foreground/80">{product.description}</p>
 
-          {/* Ingredients */}
-          <div className="mt-6">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-3">Ingredients</h3>
-            <div className="flex flex-wrap gap-2">
-              {product.ingredients.map((ing) => (
-                <span key={ing} className="rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground">{ing}</span>
-              ))}
-            </div>
+          {/* Ingredients — subtle, comma-separated inline list */}
+          <div className="mt-5 border-t border-border/40 pt-4">
+            <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground/70">Ingredients · </span>
+            <span className="text-xs text-muted-foreground/70">
+              {product.ingredients.join(", ")}
+            </span>
           </div>
 
           {/* Qty + Actions */}
@@ -146,19 +201,10 @@ const ProductDetail = () => {
               <Button
                 onClick={handleAdd}
                 disabled={product.stock === 0}
-                variant="outline"
                 size="lg"
-                className="rounded-full border-primary/30 hover:bg-secondary flex-1"
+                className="rounded-full bg-primary px-8 text-primary-foreground shadow-warm hover:opacity-90 flex-1"
               >
-                Add to Bag
-              </Button>
-              <Button
-                onClick={handleBuyNow}
-                disabled={product.stock === 0}
-                size="lg"
-                className="rounded-full bg-primary px-8 text-primary-foreground shadow-warm hover:bg-brown-deep flex-1"
-              >
-                Buy Now
+                Add to Cart
               </Button>
             </div>
           </div>
@@ -174,7 +220,7 @@ const ProductDetail = () => {
 
       {/* Related */}
       <section className="container py-12 md:py-20">
-        <h2 className="font-display text-3xl font-semibold text-primary md:text-4xl">You may also love</h2>
+        <h2 className="font-display text-3xl font-semibold text-primary md:text-4xl">Craving More?</h2>
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {otherRelated.map((p) => <ProductCard key={p.id} product={p} />)}
         </div>
