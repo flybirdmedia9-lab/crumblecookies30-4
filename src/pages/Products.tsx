@@ -80,59 +80,7 @@ const Products = () => {
 
       <section className="container py-8 md:py-10">
         {/* Sort + Filter bar */}
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-end mb-8">
-          <div className="flex items-center gap-3">
-            <select
-              value={sort}
-              onChange={(e) => setSort(e.target.value as SortOption)}
-              className="rounded-full border border-border bg-background px-4 py-2 text-sm h-11 focus:outline-none focus:ring-1 focus:ring-primary"
-            >
-              {Object.entries(SORT_LABELS).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
-            </select>
 
-            <Sheet open={filterOpen} onOpenChange={setFilterOpen}>
-              <SheetTrigger asChild>
-                <Button variant="outline" size="sm" className="rounded-full h-11 gap-2">
-                  <SlidersHorizontal className="h-4 w-4" />
-                  Filters
-                  {hasFilters && <span className="h-2 w-2 rounded-full bg-accent" />}
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-[300px]">
-                <SheetHeader>
-                  <SheetTitle>Filters</SheetTitle>
-                </SheetHeader>
-                <div className="mt-6 space-y-6">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">Category</p>
-                    <div className="flex flex-col gap-2">
-                      {categories.map((c) => (
-                        <button
-                          key={c}
-                          onClick={() => setCategory(c)}
-                          className={`rounded-xl px-4 py-2.5 text-sm font-medium text-left transition-smooth ${category === c ? "bg-primary text-primary-foreground" : "bg-secondary hover:bg-secondary/80"}`}
-                        >
-                          {c}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                  <Separator />
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">Price Range</p>
-                    <div className="flex items-center gap-2">
-                      <Input placeholder="Min ₹" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} className="rounded-xl" type="number" />
-                      <span className="text-muted-foreground">–</span>
-                      <Input placeholder="Max ₹" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} className="rounded-xl" type="number" />
-                    </div>
-                  </div>
-                  <Separator />
-                  <Button onClick={() => { clearAll(); setFilterOpen(false); }} variant="outline" className="w-full rounded-full">Clear All</Button>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
-        </div>
 
         {/* Category pills */}
         <div className="mb-8 flex flex-wrap gap-2">

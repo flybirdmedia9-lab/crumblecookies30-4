@@ -112,14 +112,26 @@ export const mockUsers: User[] = [
     addresses: [],
     wishlist: [],
   },
+  {
+    id: "user-004",
+    name: "Crumbel Customer",
+    email: "customer@crumbelcookies.com",
+    phone: "9998887776",
+    createdAt: "2026-05-01T00:00:00Z",
+    isBlocked: false,
+    addresses: [],
+    wishlist: [],
+  },
 ];
+
 
 export const defaultAdmin: AdminUser = {
   id: "admin-001",
   name: "Crumbel Admin",
-  email: "admin@crumbel.com",
-  password: "crumbel@admin123",
+  email: "admin@crumbelcookies.com",
+  password: "123456",
   role: "Super Admin",
+
   isActive: true,
   createdAt: "2026-01-01T00:00:00Z",
 };

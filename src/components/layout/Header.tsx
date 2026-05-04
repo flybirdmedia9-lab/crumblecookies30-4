@@ -10,12 +10,12 @@ import { Separator } from "@/components/ui/separator";
 
 const mainNavItems = [
   { to: "/", label: "Home" },
-  { to: "/products", label: "Order" },
+  { to: "/products", label: "Shop Now" },
 ];
 
 const sideNavMain = [
   { to: "/", label: "Home" },
-  { to: "/products", label: "Order" },
+  { to: "/products", label: "Shop Now" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
   { to: "/faq", label: "FAQ" },
@@ -37,12 +37,34 @@ export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/95 backdrop-blur-md">
-      {/* Announcement Bar - Levain style */}
-      <div className="bg-accent py-2 text-center text-[10px] font-bold uppercase tracking-[0.2em] text-accent-foreground">
-        Order Now for Fresh Batch Delivery · Free Shipping on ₹599+
+    <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background">
+      <div className="bg-accent py-2 overflow-hidden border-b border-white/10">
+
+
+        <div className="animate-marquee">
+          <div className="flex whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.2em] text-accent-foreground items-center">
+            <span className="mx-4">Free Shipping on ₹599+</span>
+            <span className="opacity-50">·</span>
+            <span className="mx-4">All India Delivery</span>
+            <span className="opacity-50">·</span>
+            <span className="mx-4">Order Now for Fresh Batch Delivery</span>
+            <span className="opacity-50">·</span>
+          </div>
+          <div className="flex whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.2em] text-accent-foreground items-center">
+            <span className="mx-4">Free Shipping on ₹599+</span>
+            <span className="opacity-50">·</span>
+            <span className="mx-4">All India Delivery</span>
+            <span className="opacity-50">·</span>
+            <span className="mx-4">Order Now for Fresh Batch Delivery</span>
+            <span className="opacity-50">·</span>
+          </div>
+        </div>
+
       </div>
-      <div className="container relative flex h-16 items-center justify-between md:h-20">
+
+
+      <div className="container relative flex h-24 items-center justify-between md:h-32">
+
 
         {/* LEFT: Hamburger + main nav */}
         <div className="flex items-center gap-1 md:gap-3">
@@ -59,7 +81,12 @@ export const Header = () => {
               <div className="flex flex-col h-full">
                 <SheetHeader className="px-6 pt-6 pb-4">
                   <div className="flex items-center justify-between">
-                    <SheetTitle className="font-display text-2xl text-primary">Crumbel</SheetTitle>
+                    <SheetTitle className="font-display text-2xl text-primary">
+                      <img src="/logo.jpeg" alt="Crumbel Logo" className="h-8 w-auto object-contain" />
+                    </SheetTitle>
+
+
+
                   </div>
                   <p className="text-xs text-muted-foreground">Premium Homemade Bakery</p>
                 </SheetHeader>
@@ -132,14 +159,24 @@ export const Header = () => {
 
         {/* CENTER: Logo */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <Link to="/" className="flex flex-col items-center">
-            <span className="font-display text-2xl font-semibold tracking-tight text-primary md:text-3xl">
-              Crumbel
-            </span>
-            <span className="hidden text-[8px] uppercase tracking-[0.3em] text-muted-foreground lg:inline">
+          <Link to="/" className="flex flex-col items-center transition-smooth hover:opacity-90 py-1">
+            <img 
+              src="/logo.jpeg" 
+              alt="Crumbel Logo" 
+              className="h-20 md:h-26 w-auto object-contain" 
+              style={{ filter: "url(#remove-white)" }}
+            />
+            <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground -mt-3 font-bold">
               Homemade Bakery
             </span>
+
           </Link>
+
+
+
+
+
+
         </div>
 
         {/* RIGHT: Account + Wishlist + Bag */}

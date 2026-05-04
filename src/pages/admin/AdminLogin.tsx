@@ -57,8 +57,9 @@ const AdminLogin = () => {
           </form>
 
           <p className="mt-6 text-center text-xs text-muted-foreground">
-            Demo: admin@crumbel.com / crumbel@admin123
+            Demo: admin@crumbelcookies.com / 123456
           </p>
+
         </div>
       </div>
     </main>

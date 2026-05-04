@@ -2,15 +2,28 @@ import { Link } from "react-router-dom";
 import { Instagram, Mail, Phone, MapPin } from "lucide-react";
 
 export const Footer = () => (
-  <footer className="mt-20 border-t border-border/60 bg-background">
+  <footer id="footer" className="mt-20 border-t border-border/60 bg-background">
     <div className="container grid gap-10 py-14 sm:grid-cols-2 md:grid-cols-4">
 
       {/* Brand */}
       <div className="sm:col-span-2 md:col-span-1">
-        <h3 className="font-display text-3xl font-semibold text-primary">Crumbel</h3>
+        <Link to="/" className="inline-block transition-smooth hover:opacity-90">
+          <img 
+            src="/logo.jpeg" 
+            alt="Crumbel Logo" 
+            className="h-12 w-auto object-contain mb-2" 
+            style={{ filter: "url(#remove-white)" }}
+          />
+        </Link>
+
+
+
+
+
         <p className="mt-3 max-w-sm text-sm text-muted-foreground">
-          Premium homemade bakery crafting freshly baked cookies and brownies with love, right from Yadadri.
+          Premium homemade cookies, brownies and more, crafted with love.
         </p>
+
         <div className="mt-5 flex items-center gap-3">
           <a
             href="https://instagram.com"
@@ -36,7 +49,7 @@ export const Footer = () => (
         <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Quick Links</h4>
         <ul className="mt-4 space-y-2.5 text-sm">
           <li><Link to="/" className="text-muted-foreground transition-smooth hover:text-accent">Home</Link></li>
-          <li><Link to="/products" className="text-muted-foreground transition-smooth hover:text-accent">Order Now</Link></li>
+          <li><Link to="/products" className="text-muted-foreground transition-smooth hover:text-accent">Shop Now</Link></li>
           <li><Link to="/wishlist" className="text-muted-foreground transition-smooth hover:text-accent">Wishlist</Link></li>
           <li><Link to="/about" className="text-muted-foreground transition-smooth hover:text-accent">Our Story</Link></li>
           <li><Link to="/track" className="text-muted-foreground transition-smooth hover:text-accent">Track Order</Link></li>

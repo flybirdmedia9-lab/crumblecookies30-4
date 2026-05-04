@@ -13,17 +13,17 @@ const Login = () => {
   const location = useLocation();
   const from = (location.state as { from?: string })?.from ?? "/account";
 
-  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !password) { toast.error("Please fill in all fields"); return; }
+    if (!phone || !password) { toast.error("Please fill in all fields"); return; }
     setLoading(true);
     await new Promise((r) => setTimeout(r, 500));
-    const ok = login(email, password);
+    const ok = login(phone, password);
     setLoading(false);
     if (ok) { toast.success("Welcome back!"); navigate(from, { replace: true }); }
     else toast.error("Invalid credentials");
@@ -40,18 +40,20 @@ const Login = () => {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="identifier">Mobile Number or Email</Label>
+
               <Input
-                id="email"
-                type="email"
-                placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                id="identifier"
+                type="text"
+                placeholder="Enter mobile or email"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
                 className="rounded-xl h-11"
-                autoComplete="email"
                 required
               />
+
             </div>
+
 
             <div className="space-y-2">
               <div className="flex items-center justify-between">

@@ -74,7 +74,8 @@ export type OrderStatus =
   | "Cancelled"
   | "Refunded";
 
-export type PaymentMethod = "COD" | "UPI" | "Card";
+export type PaymentMethod = "COD" | "UPI" | "Razorpay";
+
 export type PaymentStatus = "Pending" | "Paid" | "Failed" | "Refunded";
 
 export type OrderItem = {
@@ -107,8 +108,9 @@ export type Order = {
 export type User = {
   id: string;
   name: string;
-  email: string;
+  email?: string;
   phone: string;
+
   createdAt: string;
   isBlocked: boolean;
   addresses: Address[];

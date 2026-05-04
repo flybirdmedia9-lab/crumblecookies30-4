@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
-import heroImg from "@/assets/hero-cookies.jpg";
+import heroImg from "@/assets/hero-boxes.jpeg";
+
+
+
 import aboutImg from "@/assets/about-bakery.jpg";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/ProductCard";
@@ -22,39 +25,13 @@ const Index = () => {
       {/* HERO */}
       <section className="relative overflow-hidden bg-background">
         <div className="container grid items-center gap-8 py-6 md:grid-cols-2 md:py-10 lg:py-14">
-          <div className="animate-fade-up text-center md:text-left">
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">
-              Premium Homemade Bakery · Yadadri
-            </p>
-            <h1 className="mt-3 font-display text-5xl font-semibold leading-[1.05] text-primary md:text-6xl lg:text-7xl">
-              Baked with love.<br />
-              <span className="italic text-accent">Made to comfort.</span>
-            </h1>
-            <p className="mt-5 max-w-md text-base text-muted-foreground md:text-lg mx-auto md:mx-0">
-              Freshly baked cookies, brownies and more — crafted in small batches with the
-              finest ingredients. Soft, rich and unforgettable.
-            </p>
-            <div className="mt-7 flex flex-wrap justify-center md:justify-start gap-3">
-              <Button asChild size="lg" className="rounded-full bg-primary px-8 text-primary-foreground shadow-warm hover:bg-brown-deep">
-                <Link to="/products">Order Now</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="rounded-full border-primary/20 bg-background px-8 hover:bg-secondary">
-                <Link to="/about">Our Story</Link>
-              </Button>
-            </div>
-            <div className="mt-8 flex flex-wrap items-center justify-center md:justify-start gap-x-6 gap-y-3 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2"><Leaf className="h-4 w-4 text-accent" /> 100% Homemade</div>
-              <div className="flex items-center gap-2"><Truck className="h-4 w-4 text-accent" /> All India Delivery</div>
-              <div className="flex items-center gap-2"><Heart className="h-4 w-4 text-accent" /> Small batch baked</div>
-            </div>
-          </div>
-
-          <div className="relative">
+          {/* IMAGE FIRST */}
+          <div className="relative order-1">
             <div className="absolute -inset-4 rounded-[2rem] bg-accent/5 blur-2xl" />
             <div className="relative overflow-hidden rounded-[2rem] shadow-elegant">
               <img
                 src={heroImg}
-                alt="Stack of freshly baked chocolate chip cookies"
+                alt="Premium Crumbel cookie gift boxes with ribbons"
                 className="h-full w-full object-cover aspect-[4/3] md:aspect-square"
               />
               {/* Floating badge */}
@@ -68,17 +45,42 @@ const Index = () => {
               </div>
             </div>
           </div>
+
+          {/* TEXT SECOND */}
+          <div className="animate-fade-up text-center md:text-left order-2">
+            <h1 className="font-display text-5xl font-semibold leading-[1.05] text-primary md:text-6xl lg:text-7xl">
+
+              Baked with love.<br />
+              <span className="italic text-accent">Made to comfort.</span>
+            </h1>
+
+            <p className="mt-5 max-w-md text-base text-muted-foreground md:text-lg mx-auto md:mx-0">
+              Freshly baked cookies, brownies and more — crafted in small batches with the
+              finest ingredients. Soft, rich and unforgettable.
+            </p>
+            <div className="mt-7 flex flex-wrap justify-center md:justify-start gap-3">
+              <Button asChild size="lg" className="rounded-full bg-primary px-8 text-primary-foreground shadow-warm hover:bg-brown-deep">
+                <Link to="/products">Order Now</Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="rounded-full border-primary/20 bg-background px-8 hover:bg-secondary">
+                <Link to="/about">Our Story</Link>
+              </Button>
+            </div>
+          </div>
+
         </div>
       </section>
+
 
       {/* OFFERS STRIP - Levain Light Blue */}
       <section className="bg-secondary/40 border-y border-border/20">
         <div className="container py-4">
           <div className="flex flex-wrap justify-center gap-8 text-[11px] font-bold uppercase tracking-widest text-primary/80">
-            <div className="flex items-center gap-2"><Zap className="h-3.5 w-3.5 text-accent" /> Use code <span className="text-accent">FIRST50</span></div>
+            <div className="flex items-center gap-2"><Leaf className="h-3.5 w-3.5 text-accent" /> 100% Homemade</div>
             <div className="flex items-center gap-2"><Truck className="h-3.5 w-3.5 text-accent" /> Free shipping on ₹599+</div>
-            <div className="flex items-center gap-2"><Clock className="h-3.5 w-3.5 text-accent" /> Baked fresh to order</div>
+            <div className="flex items-center gap-2"><Clock className="h-3.5 w-3.5 text-accent" /> Freshly Baked to Order</div>
           </div>
+
         </div>
       </section>
 
@@ -137,7 +139,7 @@ const Index = () => {
           <div className="order-1 md:order-2 text-center md:text-left">
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">Our Story</p>
             <h2 className="mt-2 font-display text-4xl font-semibold text-primary md:text-5xl">
-              A bakery built on<br />real ingredients & love.
+              A homemade baking craft built on<br />real ingredients & love.
             </h2>
             <p className="mt-5 text-base text-muted-foreground md:text-lg">
               At Crumbel, every cookie and brownie is made by hand, in small batches, using
@@ -181,7 +183,7 @@ const Index = () => {
             Order our combo packs for a perfect mix of cookies and brownies — beautifully boxed and delivered fresh.
           </p>
           <Button asChild size="lg" className="mt-8 rounded-full bg-accent px-10 text-accent-foreground hover:opacity-90">
-            <Link to="/products">Order Now</Link>
+            <a href="#footer">Shop Now</a>
           </Button>
         </div>
       </section>

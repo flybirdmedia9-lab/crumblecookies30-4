@@ -36,6 +36,35 @@ const AdminContent = () => {
         <Button onClick={save} className="rounded-full bg-primary text-primary-foreground hover:bg-brown-deep">Save</Button>
       </div>
 
+      {/* Payment Settings */}
+      <div className="rounded-2xl bg-card border border-border/40 shadow-soft p-6 space-y-4">
+        <h2 className="font-display text-xl font-semibold text-primary">Payment Settings</h2>
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="space-y-2">
+            <Label>Store UPI ID</Label>
+            <Input defaultValue="crumbel@upi" className="rounded-xl h-11" />
+            <p className="text-[10px] text-muted-foreground">Customers will pay to this ID for UPI orders.</p>
+          </div>
+          <div className="space-y-2">
+            <Label>COD Handling Fee (₹)</Label>
+            <Input defaultValue="20" type="number" className="rounded-xl h-11" />
+            <p className="text-[10px] text-muted-foreground">Applied to Cash on Delivery orders.</p>
+          </div>
+        </div>
+        <div className="flex gap-4 pt-2">
+          <div className="flex items-center gap-2">
+            <input type="checkbox" defaultChecked className="h-4 w-4 rounded border-border" />
+            <span className="text-sm">Enable UPI</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <input type="checkbox" defaultChecked className="h-4 w-4 rounded border-border" />
+            <span className="text-sm">Enable COD</span>
+          </div>
+        </div>
+        <Button onClick={save} className="rounded-full bg-primary text-primary-foreground hover:bg-brown-deep">Save Settings</Button>
+      </div>
+
+
       {/* Page content */}
       <div className="rounded-2xl bg-card border border-border/40 shadow-soft overflow-hidden">
         <div className="flex overflow-x-auto border-b border-border/60">

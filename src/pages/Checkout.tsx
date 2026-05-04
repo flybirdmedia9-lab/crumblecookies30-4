@@ -61,28 +61,80 @@ const Checkout = () => {
     return true;
   };
 
-  const handlePlaceOrder = async () => {
+  const finalizeOrder = async (razorpayId?: string) => {
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 800));
+    if (razorpayId) {
+      toast.info("Payment confirmed! Finalizing your order...");
+    }
+    
+    await new Promise((r) => setTimeout(r, 1200));
     const fullAddress: Address = { ...addr, id: `addr-${Date.now()}`, userId: user?.id ?? "guest", isDefault: false };
     const orderItems: OrderItem[] = items.map((i) => ({ product: i.product, quantity: i.quantity, price: i.product.price * i.quantity }));
+    
     const order = placeOrder({
       items: orderItems,
       address: fullAddress,
       paymentMethod: payment,
+      paymentStatus: razorpayId ? "Paid" : "Pending",
+      orderStatus: "Pending",
       subtotal,
       shippingCharge,
       discount,
       total,
       couponCode: appliedCoupon?.code,
       userId: user?.id ?? "guest",
-      upiTransactionId: payment === "UPI" ? upiId : undefined,
+      upiTransactionId: payment === "UPI" ? upiId : razorpayId,
     });
+    
     clear();
     setLoading(false);
-    toast.success("Order placed successfully!");
+    toast.success(razorpayId ? "Order placed successfully!" : "Order placed! We'll verify your payment.");
     navigate("/order-confirmation", { state: { order } });
   };
+
+
+  const handlePlaceOrder = async () => {
+    if (payment === "Razorpay") {
+      const RZP = (window as any).Razorpay;
+      if (!RZP) {
+        toast.error("Payment gateway is loading. Please try again in a moment.");
+        return;
+      }
+
+      const options = {
+        key: "rzp_test_ScyUzavPlmmDkj",
+        amount: Math.round(total * 100),
+        currency: "INR",
+        name: "Crumbel",
+        description: "Order Payment",
+        image: "/logo.jpeg",
+        handler: function (response: any) {
+          finalizeOrder(response.razorpay_payment_id);
+        },
+        prefill: {
+          name: addr.name,
+          contact: addr.phone,
+          email: user?.email || "",
+        },
+        theme: {
+          color: "#000096",
+        },
+        modal: {
+          ondismiss: function() {
+            setLoading(false);
+          }
+        }
+      };
+
+      setLoading(true);
+      const rzp = new RZP(options);
+      rzp.open();
+      return;
+    }
+    finalizeOrder();
+  };
+
+
 
   const stepIndex = STEPS.indexOf(step);
 
@@ -154,9 +206,11 @@ const Checkout = () => {
               <h2 className="font-display text-2xl font-semibold text-primary mb-6">Payment Method</h2>
               <RadioGroup value={payment} onValueChange={(v) => setPayment(v as PaymentMethod)} className="space-y-3">
                 {[
+                  { v: "Razorpay" as PaymentMethod, label: "Online Payment", desc: "Cards, UPI, Netbanking", icon: CreditCard },
                   { v: "COD" as PaymentMethod, label: "Cash on Delivery", desc: "Pay when you receive your order", icon: Banknote },
-                  { v: "UPI" as PaymentMethod, label: "UPI", desc: "GPay, PhonePe, Paytm, any UPI app", icon: Smartphone },
+                  { v: "UPI" as PaymentMethod, label: "Direct UPI Transfer", desc: "Manual payment to our UPI ID", icon: Smartphone },
                 ].map(({ v, label, desc, icon: Icon }) => (
+
                   <Label
                     key={v}
                     htmlFor={v}
@@ -222,8 +276,9 @@ const Checkout = () => {
 
               <div className="rounded-xl bg-secondary/40 p-4 text-sm">
                 <p className="font-semibold text-primary mb-2">Payment</p>
-                <p>{payment === "UPI" ? `UPI${upiId ? ` · Txn: ${upiId}` : ""}` : "Cash on Delivery"}</p>
+                <p>{payment === "Razorpay" ? "Online Payment (Razorpay)" : payment === "UPI" ? `UPI${upiId ? ` · Txn: ${upiId}` : ""}` : "Cash on Delivery"}</p>
               </div>
+
 
               <Button onClick={handlePlaceOrder} disabled={loading} size="lg" className="w-full rounded-full bg-primary text-primary-foreground shadow-warm hover:bg-brown-deep py-6 text-base font-semibold">
                 {loading ? "Placing Order…" : "Place Order"}

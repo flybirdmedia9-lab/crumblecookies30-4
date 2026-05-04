@@ -11,7 +11,7 @@ const Register = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({ name: "", email: "", phone: "", password: "", confirm: "" });
+  const [form, setForm] = useState({ name: "", phone: "", password: "", confirm: "" });
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -19,15 +19,15 @@ const Register = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.phone || !form.password) { toast.error("Please fill all fields"); return; }
+    if (!form.name || !form.phone || !form.password) { toast.error("Please fill all fields"); return; }
     if (form.password !== form.confirm) { toast.error("Passwords don't match"); return; }
     if (form.password.length < 6) { toast.error("Password must be at least 6 characters"); return; }
     setLoading(true);
     await new Promise((r) => setTimeout(r, 500));
-    const ok = register(form.name, form.email, form.phone, form.password);
+    const ok = register(form.name, form.phone, form.password);
     setLoading(false);
     if (ok) { toast.success("Account created! Welcome to Crumbel 🎉"); navigate("/account"); }
-    else toast.error("Email already registered. Try logging in.");
+    else toast.error("Phone number already registered. Try logging in.");
   };
 
   return (
@@ -45,13 +45,10 @@ const Register = () => {
               <Input id="name" placeholder="Your name" value={form.name} onChange={set("name")} className="rounded-xl h-11" required />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="you@example.com" value={form.email} onChange={set("email")} className="rounded-xl h-11" autoComplete="email" required />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="phone">Phone</Label>
+              <Label htmlFor="phone">Mobile Number</Label>
               <Input id="phone" type="tel" placeholder="10-digit mobile number" value={form.phone} onChange={set("phone")} className="rounded-xl h-11" maxLength={10} required />
             </div>
+
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <div className="relative">

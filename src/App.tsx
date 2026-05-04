@@ -11,6 +11,8 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { BagDrawer } from "@/components/layout/BagDrawer";
 import { AdminGuard } from "@/components/admin/AdminGuard";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
+
 
 // Customer pages
 import Index from "./pages/Index";
@@ -50,12 +52,24 @@ const queryClient = new QueryClient();
 
 const StorefrontLayout = ({ children }: { children: React.ReactNode }) => (
   <>
+    {/* SVG Filter to remove white background from logo */}
+    <svg width="0" height="0" className="absolute">
+      <filter id="remove-white" colorInterpolationFilters="sRGB">
+        <feColorMatrix type="matrix" values="1 0 0 0 0
+                                             0 1 0 0 0
+                                             0 0 1 0 0
+                                             -1.5 -1.5 -1.5 4.5 -0.1" />
+      </filter>
+    </svg>
     <Header />
     {children}
     <Footer />
     <BagDrawer />
+    <WhatsAppButton />
   </>
+
 );
+
 
 const App = () => (
   <QueryClientProvider client={queryClient}>

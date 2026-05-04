@@ -8,6 +8,9 @@ import { toast } from "sonner";
 import { ProductCard } from "@/components/ProductCard";
 import { Minus, Plus, ChevronLeft, ChevronRight, Truck, Leaf, ShieldCheck, Heart, Star, Package } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getProductWhatsAppUrl } from "@/lib/whatsapp";
+import { MessageCircle } from "lucide-react";
+
 
 const BADGE_STYLES: Record<string, string> = {
   Bestseller: "bg-accent text-accent-foreground",
@@ -206,6 +209,22 @@ const ProductDetail = () => {
               >
                 Add to Cart
               </Button>
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="rounded-full border-[#25D366] text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all duration-300 flex-1 gap-2"
+              >
+                <a
+                  href={getProductWhatsAppUrl(product, qty)}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <MessageCircle className="h-5 w-5" fill="currentColor" />
+                  Order on WhatsApp
+                </a>
+              </Button>
+
             </div>
           </div>
 

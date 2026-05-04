@@ -9,6 +9,9 @@ import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
 import { toast } from "sonner";
 import { products } from "@/data/products";
+import { getCartWhatsAppUrl } from "@/lib/whatsapp";
+import { MessageCircle } from "lucide-react";
+
 
 const FREE_SHIPPING_THRESHOLD = 599;
 
@@ -28,31 +31,37 @@ export const BagDrawer = () => {
   return (
     <Sheet open={isDrawerOpen} onOpenChange={setDrawerOpen}>
       <SheetContent className="flex w-full flex-col bg-background p-0 sm:max-w-md">
-        <SheetHeader className="px-6 pt-6 pb-4 text-left border-b border-border/60">
-          <SheetTitle className="flex items-center gap-2 font-display text-2xl text-primary">
-            <ShoppingBag className="h-5 w-5" />
+        <SheetHeader className="px-6 pt-8 pb-6 text-left border-none">
+          <SheetTitle className="flex items-center gap-3 font-display text-3xl font-bold text-primary">
+            <ShoppingBag className="h-7 w-7" strokeWidth={2.5} />
             Your Bag
-            {items.length > 0 && (
-              <span className="ml-auto text-sm font-normal text-muted-foreground font-sans">
-                {items.reduce((s, i) => s + i.quantity, 0)} item(s)
-              </span>
-            )}
           </SheetTitle>
         </SheetHeader>
 
+
         <div className="flex flex-1 flex-col overflow-hidden">
           {items.length === 0 ? (
-            <div className="flex flex-1 flex-col items-center justify-center gap-4 p-8 text-center">
-              <div className="rounded-full bg-secondary p-6">
-                <ShoppingBag className="h-12 w-12 text-muted-foreground" />
-              </div>
-              <p className="text-lg font-medium text-muted-foreground">Your bag is empty</p>
-              <p className="text-sm text-muted-foreground">Add something delicious!</p>
-              <Button onClick={() => setDrawerOpen(false)} asChild variant="outline" className="rounded-full">
-                <Link to="/products">Start Ordering</Link>
+            <div className="flex flex-1 flex-col items-center justify-center p-8 text-center bg-[#fcf7ec]">
+              <h3 className="text-2xl font-bold text-primary mb-10">Your bag is empty.</h3>
+              
+              <Button 
+                onClick={() => setDrawerOpen(false)} 
+                asChild 
+                className="w-full max-w-xs rounded-md bg-[#000096] py-8 text-[11px] font-black uppercase tracking-[0.2em] text-white hover:opacity-95 shadow-none border-none transition-all"
+              >
+                <Link to="/products">Let's fix that</Link>
               </Button>
+
+              <div className="mt-16 space-y-2">
+                <p className="text-2xl font-bold text-primary">Have an account?</p>
+                <p className="text-sm text-primary">
+                  <Link to="/login" onClick={() => setDrawerOpen(false)} className="underline font-bold decoration-2 underline-offset-4">Log in</Link> to check out faster.
+                </p>
+              </div>
             </div>
           ) : (
+
+
             <>
               <ScrollArea className="flex-1 px-6">
                 {/* Cart Items */}
@@ -205,6 +214,22 @@ export const BagDrawer = () => {
                     Checkout Now
                   </Link>
                 </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="mt-3 w-full rounded-full border-[#25D366] text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all duration-300 gap-2"
+                >
+                  <a
+                    href={getCartWhatsAppUrl(items, total)}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <MessageCircle className="h-5 w-5" fill="currentColor" />
+                    Order via WhatsApp
+                  </a>
+                </Button>
+
                 <p className="mt-3 text-center text-xs text-muted-foreground">
                   100% Secure · Handmade with Love
                 </p>

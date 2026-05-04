@@ -32,12 +32,12 @@ const Contact = () => {
       <section className="container grid gap-10 py-16 md:grid-cols-[1fr_1.2fr] md:py-24">
         <div className="space-y-4">
           {[
-            { icon: Phone, title: "Call us", value: "+91 91008 22844", href: "tel:+919100822844" },
-            { icon: Phone, title: "Alternate", value: "+91 94931 15421", href: "tel:+919493115421" },
+            { icon: Phone, title: "Call us", value: "+91 94931 15421", href: "tel:+919493115421" },
             { icon: Mail, title: "Email", value: "crumblefoods@gmail.com", href: "mailto:crumblefoods@gmail.com" },
-            { icon: MessageCircle, title: "WhatsApp", value: "Chat with us", href: "https://wa.me/919100822844" },
+            { icon: MessageCircle, title: "WhatsApp", value: "Chat with us", href: "https://wa.me/919493115421" },
             { icon: MapPin, title: "Visit", value: "Kondapur Village, Motakondur Mandal,\nYadadri Dist, Telangana" },
           ].map((c, i) => (
+
             <a
               key={i}
               href={c.href}

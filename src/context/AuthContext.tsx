@@ -6,9 +6,9 @@ import { defaultAdmin, mockUsers } from "@/data/mockData";
 type AuthCtx = {
   user: User | null;
   admin: AdminUser | null;
-  login: (email: string, password: string) => boolean;
+  login: (phone: string, password: string) => boolean;
   loginAdmin: (email: string, password: string) => boolean;
-  register: (name: string, email: string, phone: string, password: string) => boolean;
+  register: (name: string, phone: string, password: string, email?: string) => boolean;
   logout: () => void;
   logoutAdmin: () => void;
   updateUser: (data: Partial<User>) => void;
@@ -20,31 +20,33 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(() => getItem<User | null>(KEYS.AUTH_USER, null));
   const [admin, setAdmin] = useState<AdminUser | null>(() => getItem<AdminUser | null>(KEYS.AUTH_ADMIN, null));
 
-  const login = (email: string, _password: string): boolean => {
+  const login = (identifier: string, _password: string): boolean => {
     const users = getItem<User[]>(KEYS.USERS, mockUsers);
-    const found = users.find((u) => u.email === email);
+    const found = users.find((u) => u.phone === identifier || u.email === identifier);
     if (found) {
       setUser(found);
       setItem(KEYS.AUTH_USER, found);
       return true;
     }
-    // Auto-create user for demo
-    const newUser: User = {
-      id: `user-${Date.now()}`,
-      name: email.split("@")[0],
-      email,
-      phone: "",
-      createdAt: new Date().toISOString(),
-      isBlocked: false,
-      addresses: [],
-      wishlist: [],
-    };
-    setUser(newUser);
-    setItem(KEYS.AUTH_USER, newUser);
-    const all = [...users, newUser];
-    setItem(KEYS.USERS, all);
-    return true;
+    // Auto-create user for demo if identifier looks like a phone number
+    if (/^\d{10}$/.test(identifier)) {
+      const newUser: User = {
+        id: `user-${Date.now()}`,
+        name: `User ${identifier.slice(-4)}`,
+        phone: identifier,
+        createdAt: new Date().toISOString(),
+        isBlocked: false,
+        addresses: [],
+        wishlist: [],
+      };
+      setUser(newUser);
+      setItem(KEYS.AUTH_USER, newUser);
+      setItem(KEYS.USERS, [...users, newUser]);
+      return true;
+    }
+    return false;
   };
+
 
   const loginAdmin = (email: string, password: string): boolean => {
     if (email === defaultAdmin.email && password === defaultAdmin.password) {
@@ -55,9 +57,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return false;
   };
 
-  const register = (name: string, email: string, phone: string, _password: string): boolean => {
+  const register = (name: string, phone: string, _password: string, email?: string): boolean => {
     const users = getItem<User[]>(KEYS.USERS, mockUsers);
-    const exists = users.find((u) => u.email === email);
+    const exists = users.find((u) => u.phone === phone);
     if (exists) return false;
     const newUser: User = {
       id: `user-${Date.now()}`,
@@ -74,6 +76,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setItem(KEYS.USERS, [...users, newUser]);
     return true;
   };
+
 
   const logout = () => {
     setUser(null);
