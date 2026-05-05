@@ -42,8 +42,8 @@ const Index = () => {
           <div className="animate-fade-up text-center md:text-left order-2">
             <h1 className="font-display text-5xl font-semibold leading-[1.05] text-primary md:text-6xl lg:text-7xl">
 
-              Baked with love.<br />
-              <span className="italic text-accent">Made to comfort.</span>
+              Baked with Love.<br />
+              <span className="italic text-accent">Made for You.</span>
             </h1>
 
             <p className="mt-5 max-w-md text-base text-muted-foreground md:text-lg mx-auto md:mx-0">
@@ -131,7 +131,7 @@ const Index = () => {
           <div className="order-1 md:order-2 text-center md:text-left">
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">Our Story</p>
             <h2 className="mt-2 font-display text-4xl font-semibold text-primary md:text-5xl">
-              A premium baking craft built on<br />real ingredients & love.
+              A premium baking craft built on<br />real ingredients & Love.
             </h2>
             <p className="mt-5 text-base text-muted-foreground md:text-lg">
               At Crumbel, every cookie and brownie is made by hand, in small batches, using

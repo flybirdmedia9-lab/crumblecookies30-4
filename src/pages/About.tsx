@@ -2,7 +2,7 @@ import aboutImg from "@/assets/about-bakery.jpg";
 import { Heart, Leaf, Sparkles, Truck } from "lucide-react";
 
 const values = [
-  { icon: Heart, title: "Made with love", text: "Every batch is hand-crafted with attention to detail and care." },
+  { icon: Heart, title: "Made with Love", text: "Every batch is hand-crafted with attention to detail and care." },
   { icon: Leaf, title: "Real ingredients", text: "Real butter, premium chocolate, fresh eggs — nothing artificial." },
   { icon: Sparkles, title: "Small batch", text: "Baked in small batches so every bite tastes its absolute best." },
   { icon: Truck, title: "Pan-India delivery", text: "Freshly packed and shipped across India with trusted partners." },
@@ -35,7 +35,7 @@ const About = () => {
           <div className="mt-6 space-y-4 text-base leading-relaxed text-foreground/80">
             <p>
               Crumbel is a premium crafted bakes brand crafting freshly baked cookies, brownies
-              and more — with love and high-quality ingredients. Every bite is soft, rich and made
+              and more — with Love and high-quality ingredients. Every bite is soft, rich and made
               to bring comfort and joy.
             </p>
             <p>

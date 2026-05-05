@@ -73,7 +73,7 @@ const Products = () => {
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">Shop Treats</p>
           <h1 className="mt-2 font-display text-5xl font-semibold text-primary md:text-6xl">Freshly Baked, Just for You</h1>
           <p className="mx-auto mt-3 max-w-xl text-primary/90 text-lg">
-            Indulge in soft cookies, rich brownies & handcrafted combos — baked fresh, delivered with love.
+            Indulge in soft cookies, rich brownies & handcrafted combos — baked fresh, delivered with Love.
           </p>
         </div>
       </section>
