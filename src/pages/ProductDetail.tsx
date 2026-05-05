@@ -231,7 +231,7 @@ const ProductDetail = () => {
           {/* Benefits */}
           <div className="mt-8 grid grid-cols-3 gap-3 rounded-2xl bg-secondary/50 p-5 text-sm">
             <div className="flex flex-col items-center gap-1.5 text-center"><Truck className="h-5 w-5 text-accent" /><span className="text-xs">All India delivery</span></div>
-            <div className="flex flex-col items-center gap-1.5 text-center"><Leaf className="h-5 w-5 text-accent" /><span className="text-xs">100% homemade</span></div>
+            <div className="flex flex-col items-center gap-1.5 text-center"><Leaf className="h-5 w-5 text-accent" /><span className="text-xs">100% Hand-Crafted</span></div>
             <div className="flex flex-col items-center gap-1.5 text-center"><ShieldCheck className="h-5 w-5 text-accent" /><span className="text-xs">Freshly baked</span></div>
           </div>
         </div>

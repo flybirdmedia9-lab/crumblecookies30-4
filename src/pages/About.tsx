@@ -18,7 +18,7 @@ const About = () => {
             Baked at home.<br /><span className="italic text-accent">Loved everywhere.</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-muted-foreground md:text-lg">
-            Crumbel began with a simple idea — that homemade baking, done with quality and
+            Crumbel began with a simple idea — that premium baking, done with quality and
             patience, brings joy unlike anything else.
           </p>
         </div>
@@ -34,7 +34,7 @@ const About = () => {
           </h2>
           <div className="mt-6 space-y-4 text-base leading-relaxed text-foreground/80">
             <p>
-              Crumbel is a premium homemade bakery brand crafting freshly baked cookies, brownies
+              Crumbel is a premium crafted bakes brand crafting freshly baked cookies, brownies
               and more — with love and high-quality ingredients. Every bite is soft, rich and made
               to bring comfort and joy.
             </p>

@@ -1,3 +1,3 @@
 # Crumbel
 
-Premium homemade cookies, brownies, and combo packs.
+Premium crafted bakes, cookies, brownies, and combo packs.

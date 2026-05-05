@@ -88,7 +88,7 @@ export const Header = () => {
 
 
                   </div>
-                  <p className="text-xs text-muted-foreground">Premium Homemade Bakery</p>
+                  <p className="text-xs text-muted-foreground">Premium Crafted Bakes</p>
                 </SheetHeader>
                 <Separator />
                 <nav className="flex-1 overflow-y-auto px-6 py-6">
@@ -167,7 +167,7 @@ export const Header = () => {
               style={{ filter: "url(#remove-white)" }}
             />
             <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground -mt-3 font-bold">
-              Homemade Bakery
+              Crafted Bakes
             </span>
 
           </Link>

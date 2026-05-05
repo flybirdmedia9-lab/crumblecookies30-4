@@ -21,7 +21,7 @@ export const Footer = () => (
 
 
         <p className="mt-3 max-w-sm text-sm text-muted-foreground">
-          Premium homemade cookies, brownies and more, crafted with love.
+          Premium crafted bakes, cookies, brownies and more, made with love.
         </p>
 
         <div className="mt-5 flex items-center gap-3">

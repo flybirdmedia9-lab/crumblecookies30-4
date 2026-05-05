@@ -34,15 +34,7 @@ const Index = () => {
                 alt="Premium Crumbel cookie gift boxes with ribbons"
                 className="h-full w-full object-cover aspect-[4/3] md:aspect-square"
               />
-              {/* Floating badge */}
-              <div className="absolute bottom-4 left-4 rounded-2xl bg-background/90 backdrop-blur-sm p-3 shadow-warm">
-                <div className="flex items-center gap-2">
-                  <div className="flex gap-0.5">
-                    {[1,2,3,4,5].map((i) => <Star key={i} className="h-3 w-3 text-accent" fill="currentColor" />)}
-                  </div>
-                  <span className="text-xs font-semibold text-primary">5.0 · 120+ reviews</span>
-                </div>
-              </div>
+
             </div>
           </div>
 
@@ -76,7 +68,7 @@ const Index = () => {
       <section className="bg-secondary/40 border-y border-border/20">
         <div className="container py-4">
           <div className="flex flex-wrap justify-center gap-8 text-[11px] font-bold uppercase tracking-widest text-primary/80">
-            <div className="flex items-center gap-2"><Leaf className="h-3.5 w-3.5 text-accent" /> 100% Homemade</div>
+            <div className="flex items-center gap-2"><Leaf className="h-3.5 w-3.5 text-accent" /> 100% Hand-Crafted</div>
             <div className="flex items-center gap-2"><Truck className="h-3.5 w-3.5 text-accent" /> Free shipping on ₹599+</div>
             <div className="flex items-center gap-2"><Clock className="h-3.5 w-3.5 text-accent" /> Freshly Baked to Order</div>
           </div>
@@ -134,12 +126,12 @@ const Index = () => {
       <section className="bg-background py-16 md:py-24">
         <div className="container grid items-center gap-12 md:grid-cols-2">
           <div className="overflow-hidden rounded-[2rem] shadow-elegant order-2 md:order-1">
-            <img src={aboutImg} alt="Assorted homemade cookies on linen" loading="lazy" className="h-full w-full object-cover aspect-[4/3]" />
+            <img src={aboutImg} alt="Assorted premium bakes on linen" loading="lazy" className="h-full w-full object-cover aspect-[4/3]" />
           </div>
           <div className="order-1 md:order-2 text-center md:text-left">
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">Our Story</p>
             <h2 className="mt-2 font-display text-4xl font-semibold text-primary md:text-5xl">
-              A homemade baking craft built on<br />real ingredients & love.
+              A premium baking craft built on<br />real ingredients & love.
             </h2>
             <p className="mt-5 text-base text-muted-foreground md:text-lg">
               At Crumbel, every cookie and brownie is made by hand, in small batches, using
