@@ -2,6 +2,7 @@ import { createContext, useContext, useState, ReactNode } from "react";
 import type { User, AdminUser } from "@/types";
 import { getItem, setItem, removeItem, KEYS } from "@/lib/storage";
 import { defaultAdmin, mockUsers } from "@/data/mockData";
+import { apiFetch } from "@/lib/api";
 
 type AuthCtx = {
   user: User | null;
@@ -20,33 +21,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(() => getItem<User | null>(KEYS.AUTH_USER, null));
   const [admin, setAdmin] = useState<AdminUser | null>(() => getItem<AdminUser | null>(KEYS.AUTH_ADMIN, null));
 
-  const login = (identifier: string, _password: string): boolean => {
-    const users = getItem<User[]>(KEYS.USERS, mockUsers);
-    const found = users.find((u) => u.phone === identifier || u.email === identifier);
-    if (found) {
-      setUser(found);
-      setItem(KEYS.AUTH_USER, found);
-      return true;
-    }
-    // Auto-create user for demo if identifier looks like a phone number
-    if (/^\d{10}$/.test(identifier)) {
-      const newUser: User = {
-        id: `user-${Date.now()}`,
-        name: `User ${identifier.slice(-4)}`,
-        phone: identifier,
-        createdAt: new Date().toISOString(),
-        isBlocked: false,
-        addresses: [],
-        wishlist: [],
-      };
-      setUser(newUser);
-      setItem(KEYS.AUTH_USER, newUser);
-      setItem(KEYS.USERS, [...users, newUser]);
-      return true;
-    }
-    return false;
-  };
+  const login = async (identifier: string, password: string): Promise<boolean> => {
+    try {
+      const res = await apiFetch<{ success?: boolean; user?: User; error?: string }>("/auth.php", {
+        method: "POST",
+        body: JSON.stringify({ action: "login", identifier, password }),
+      });
 
+      if (res.success && res.user) {
+        setUser(res.user);
+        setItem(KEYS.AUTH_USER, res.user);
+        return true;
+      }
+      return false;
+    } catch (err) {
+      console.error("Login failed", err);
+      return false;
+    }
+  };
 
   const loginAdmin = (email: string, password: string): boolean => {
     if (email === defaultAdmin.email && password === defaultAdmin.password) {
@@ -57,24 +49,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return false;
   };
 
-  const register = (name: string, phone: string, _password: string, email?: string): boolean => {
-    const users = getItem<User[]>(KEYS.USERS, mockUsers);
-    const exists = users.find((u) => u.phone === phone);
-    if (exists) return false;
-    const newUser: User = {
-      id: `user-${Date.now()}`,
-      name,
-      email,
-      phone,
-      createdAt: new Date().toISOString(),
-      isBlocked: false,
-      addresses: [],
-      wishlist: [],
-    };
-    setUser(newUser);
-    setItem(KEYS.AUTH_USER, newUser);
-    setItem(KEYS.USERS, [...users, newUser]);
-    return true;
+  const register = async (name: string, phone: string, password: string, email?: string): Promise<boolean> => {
+    try {
+      const res = await apiFetch<{ success?: boolean; user?: User; error?: string }>("/auth.php", {
+        method: "POST",
+        body: JSON.stringify({ action: "register", name, phone, password, email }),
+      });
+
+      if (res.success && res.user) {
+        setUser(res.user);
+        setItem(KEYS.AUTH_USER, res.user);
+        return true;
+      }
+      return false;
+    } catch (err) {
+      console.error("Registration failed", err);
+      return false;
+    }
   };
 
 

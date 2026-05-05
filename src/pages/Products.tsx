@@ -1,11 +1,12 @@
-import { useMemo, useState } from "react";
-import { products as allProducts } from "@/data/products";
+import { useMemo, useState, useEffect } from "react";
 import { ProductCard } from "@/components/ProductCard";
 import { Input } from "@/components/ui/input";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
+import { apiFetch } from "@/lib/api";
+import type { Product } from "@/types";
 
 const categories = ["All", "Cookies", "Brownies", "Combo Packs"] as const;
 type Cat = typeof categories[number];
@@ -22,19 +23,33 @@ const SORT_LABELS: Record<SortOption, string> = {
 };
 
 const Products = () => {
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState<Cat>("All");
   const [sort, setSort] = useState<SortOption>("default");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [filterOpen, setFilterOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    apiFetch<Product[]>("/products.php")
+      .then((data) => {
+        setAllProducts(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch products", err);
+        setLoading(false);
+      });
+  }, []);
 
   const filtered = useMemo(() => {
-    let list = [...allProducts].filter((p) => p.isEnabled);
+    let list = [...allProducts];
 
     if (search.trim()) {
       const q = search.toLowerCase();
-      list = list.filter((p) => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q) || p.shortDescription.toLowerCase().includes(q));
+      list = list.filter((p) => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q) || p.description?.toLowerCase().includes(q));
     }
 
     if (category !== "All") {
@@ -54,7 +69,7 @@ const Products = () => {
     }
 
     return list;
-  }, [search, category, sort, minPrice, maxPrice]);
+  }, [allProducts, search, category, sort, minPrice, maxPrice]);
 
   const hasFilters = search || category !== "All" || sort !== "default" || minPrice || maxPrice;
 
@@ -101,7 +116,12 @@ const Products = () => {
         </div>
 
         {/* Results */}
-        {filtered.length === 0 ? (
+        {loading ? (
+          <div className="py-20 text-center">
+            <div className="mx-auto h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+            <p className="mt-4 text-muted-foreground">Loading treats...</p>
+          </div>
+        ) : filtered.length === 0 ? (
           <div className="py-20 text-center">
             <p className="text-lg font-display text-muted-foreground">No products found.</p>
             <button onClick={clearAll} className="mt-4 text-sm text-accent hover:underline">Clear filters</button>
